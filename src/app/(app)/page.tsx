@@ -24,7 +24,7 @@ export default async ({ params: paramsPromise }: { params: Promise<{ slug: strin
         <li>The tenant and locale params are used in the page component to fetch and render the correct localized tenant content.</li>
       </ul>
 
-      <p>For a detailed breakdown of the code and setup, checkout the full README in the example root folder.</p>
+      <p>For a detailed breakdown of the code and setup, checkout the full <a href="https://github.com/payloadcms/localized-multitenant/blob/main/README.md" target="_blank" rel="noopener noreferrer">README</a> in the example root folder.</p>
     </div>
   )
 }

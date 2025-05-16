@@ -123,7 +123,7 @@ export interface Page {
   id: string;
   tenant?: (string | null) | Tenant;
   title?: string | null;
-  slug?: string | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
