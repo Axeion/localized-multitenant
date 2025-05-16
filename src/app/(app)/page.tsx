@@ -11,8 +11,7 @@ export default async ({ params: paramsPromise }: { params: Promise<{ slug: strin
         <br />Each domain will be parsed to identify the correct tenant and load the relevant localized content.</p>
 
       <ul>
-        <li>Visit <a href="http://gold.localhost:3000/en/login" rel="noopener noreferrer">http://gold.localhost:3000/en/login</a> then <a href="http://silver.localhost:3000/en/login" rel="noopener noreferrer">http://silver.localhost:3000/en/login</a> to see different tenant content.</li>
-        <li>Visit different locales <a href="http://gold.localhost:3000/en/test" rel="noopener noreferrer">http://gold.localhost:3000/en/test</a> then <a href="http://gold.localhost:3000/fr/test" rel="noopener noreferrer">http://gold.localhost:3000/fr/test</a> to see how different localized content is rendered.</li>
+        <li>Visit different tenant and locales combinations <a href="http://gold.localhost:3000/en/test" rel="noopener noreferrer">http://gold.localhost:3000/en/test</a> then <a href="http://silver.localhost:3000/fr/test" rel="noopener noreferrer">http://silver.localhost:3000/fr/test</a> to see how different domains can be accessed with localized content rendered.</li>
       </ul>
 
       <h2>How It Works</h2>

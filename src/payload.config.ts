@@ -1,5 +1,4 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
-import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload";
@@ -9,9 +8,7 @@ import { Pages } from "./collections/Pages";
 import { Tenants } from "./collections/Tenants";
 import Users from "./collections/Users";
 import { multiTenantPlugin } from "@payloadcms/plugin-multi-tenant";
-import { isSuperAdmin } from "./access/isSuperAdmin";
 import type { Config } from "./payload-types";
-import { getUserTenantIDs } from "./utilities/getUserTenantIDs";
 import { seed } from "./seed";
 
 const filename = fileURLToPath(import.meta.url);
@@ -51,18 +48,13 @@ export default buildConfig({
       tenantField: {
         access: {
           read: () => true,
-          update: ({ req }) => {
-            if (isSuperAdmin(req.user)) {
-              return true;
-            }
-            return getUserTenantIDs(req.user).length > 0;
-          },
+          update: () => true,
         },
       },
       tenantsArrayField: {
         includeDefaultField: false,
       },
-      userHasAccessToAllTenants: (user) => isSuperAdmin(user),
+      userHasAccessToAllTenants: () => true,
     }),
   ],
 });

@@ -142,10 +142,6 @@ export interface Tenant {
    * Used for url paths, example: /tenant-slug/page-slug
    */
   slug: string;
-  /**
-   * If checked, logging in is not required to read. Useful for building public pages.
-   */
-  allowPublicRead?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -155,7 +151,6 @@ export interface Tenant {
  */
 export interface User {
   id: string;
-  roles?: ('super-admin' | 'user')[] | null;
   username?: string | null;
   tenants?:
     | {
@@ -252,7 +247,6 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  roles?: T;
   username?: T;
   tenants?:
     | T
@@ -279,7 +273,6 @@ export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   domain?: T;
   slug?: T;
-  allowPublicRead?: T;
   updatedAt?: T;
   createdAt?: T;
 }

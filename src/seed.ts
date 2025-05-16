@@ -30,108 +30,31 @@ export const seed: NonNullable<Config["onInit"]> = async (
     },
   });
 
-  await payload.create({
+  const existingUser = await payload.find({
     collection: "users",
-    data: {
-      email: "demo@payloadcms.com",
-      password: "demo",
-      roles: ["super-admin"],
+    where: {
+      email: {
+        equals: "demo@payloadcms.com",
+      },
     },
   });
 
-  await payload.create({
-    collection: "users",
-    data: {
-      email: "gold@payloadcms.com",
-      password: "demo",
-      tenants: [
-        {
-          roles: ["tenant-admin"],
-          tenant: tenant1.id,
-        },
-      ],
-      username: "tenant1",
-    },
-  });
-
-  await payload.create({
-    collection: "users",
-    data: {
-      email: "silver@payloadcms.com",
-      password: "demo",
-      tenants: [
-        {
-          roles: ["tenant-admin"],
-          tenant: tenant2.id,
-        },
-      ],
-      username: "tenant2",
-    },
-  });
-
-  await payload.create({
-    collection: "users",
-    data: {
-      email: "bronze@payloadcms.com",
-      password: "demo",
-      tenants: [
-        {
-          roles: ["tenant-admin"],
-          tenant: tenant3.id,
-        },
-      ],
-      username: "tenant3",
-    },
-  });
-
-  await payload.create({
-    collection: "users",
-    data: {
-      email: "multi-admin@payloadcms.com",
-      password: "demo",
-      tenants: [
-        {
-          roles: ["tenant-admin"],
-          tenant: tenant1.id,
-        },
-        {
-          roles: ["tenant-admin"],
-          tenant: tenant2.id,
-        },
-        {
-          roles: ["tenant-admin"],
-          tenant: tenant3.id,
-        },
-      ],
-      username: "multi-admin",
-    },
-  });
-
-  const testPage = await payload.create({
-    collection: "pages",
-    data: {
-      slug: "test",
-      tenant: tenant1.id,
-      title: "Test Page for Tenant 1 (English)",
-    },
-    locale: "en",
-  });
-
-  await payload.update({
-    collection: "pages",
-    id: testPage.id,
-    data: {
-      title: "Test Page for Tenant 1 (French)",
-    },
-    locale: "fr",
-  });
+  if (!existingUser.docs.length) {
+    await payload.create({
+      collection: "users",
+      data: {
+        email: "demo@payloadcms.com",
+        password: "demo",
+      },
+    });
+  }
 
   const page = await payload.create({
     collection: "pages",
     data: {
-      slug: "home",
+      slug: "test",
       tenant: tenant1.id,
-      title: "Page for Tenant 1 (English)",
+      title: "Page for Gold Tenant (English)",
     },
     locale: "en",
   });
@@ -140,7 +63,7 @@ export const seed: NonNullable<Config["onInit"]> = async (
     collection: "pages",
     id: page.id,
     data: {
-      title: "Page for Tenant 1 (French)",
+      title: "Page pour le locatair Gold (Français)",
     },
     locale: "fr",
   });
@@ -148,9 +71,9 @@ export const seed: NonNullable<Config["onInit"]> = async (
   const page2 = await payload.create({
     collection: "pages",
     data: {
-      slug: "home",
+      slug: "test",
       tenant: tenant2.id,
-      title: "Page for Tenant 2 (English)",
+      title: "Page for Silver Tenant (English)",
     },
     locale: "en",
   });
@@ -159,7 +82,7 @@ export const seed: NonNullable<Config["onInit"]> = async (
     collection: "pages",
     id: page2.id,
     data: {
-      title: "Page for Tenant 2 (French)",
+      title: "Page pour le locatair Silver (Français)",
     },
     locale: "fr",
   });
@@ -167,9 +90,9 @@ export const seed: NonNullable<Config["onInit"]> = async (
   const page3 = await payload.create({
     collection: "pages",
     data: {
-      slug: "home",
+      slug: "test",
       tenant: tenant3.id,
-      title: "Page for Tenant 3 (English)",
+      title: "Page for Bronze Tenant (English)",
     },
     locale: "en",
   });
@@ -178,7 +101,7 @@ export const seed: NonNullable<Config["onInit"]> = async (
     collection: "pages",
     id: page3.id,
     data: {
-      title: "Page for Tenant 3 (French)",
+      title: "Page pour le locataire Bronze (Français)",
     },
     locale: "fr",
   });

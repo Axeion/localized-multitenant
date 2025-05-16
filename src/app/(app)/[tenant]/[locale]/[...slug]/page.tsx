@@ -1,7 +1,6 @@
 import type { Where } from 'payload'
 
 import configPromise from '@payload-config'
-import { headers as getHeaders } from 'next/headers.js'
 import { notFound, redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -24,41 +23,22 @@ export default async function Page({
     locale = params.locale as Locale
   }
 
-  const headers = await getHeaders()
   const payload = await getPayload({ config: configPromise })
-  const { user } = await payload.auth({ headers })
 
   try {
-    const tenantsQuery = await payload.find({
+    const tenants = await payload.find({
       collection: 'tenants',
-      overrideAccess: true,
-      user,
       where: {
         domain: {
           equals: params.tenant,
         },
       },
     })
-
-    // If no tenant is found, the user does not have access
-    // Show the login view
-    if (tenantsQuery.docs.length === 0) {
-      redirect(
-        `/${locale}/login?redirect=${encodeURIComponent(
-          `/${slug}`,
-        )}`,
-      )
-    }
   } catch (e) {
     console.log('Error querying tenants:', e)
-    redirect(
-      `/${locale}/login?redirect=${encodeURIComponent(
-        `/${slug}`,
-      )}`,
-    )
+    return notFound()
   }
 
-  // If there is no slug, we cannot find the page
   if (!slug) {
     return notFound()
   }
@@ -71,8 +51,6 @@ export default async function Page({
 
   const pageQuery = await payload.find({
     collection: 'pages',
-    overrideAccess: true,
-    user,
     where: {
       and: [
         {
@@ -88,11 +66,41 @@ export default async function Page({
 
   const pageData = pageQuery.docs?.[0]
 
-  // The page with the provided slug could not be found
   if (!pageData) {
     return notFound()
   }
 
-  // The page was found, render the page with data
   return <RenderPage data={pageData} />
+}
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+
+  const tenants = await payload.find({
+    collection: 'tenants',
+  })
+
+  const pages = await payload.find({
+    collection: 'pages',
+  })
+
+  const locales: Locale[] = ['en', 'fr']
+
+  const params = []
+
+  for (const tenant of tenants.docs) {
+    for (const page of pages.docs) {
+      if (typeof page.tenant === 'object' && page.tenant?.domain === tenant.domain && page.slug) {
+        for (const locale of locales) {
+          params.push({
+            tenant: tenant.domain,
+            locale,
+            slug: page.slug.split('/'),
+          })
+        }
+      }
+    }
+  }
+
+  return params
 }

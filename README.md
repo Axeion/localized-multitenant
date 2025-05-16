@@ -16,8 +16,8 @@ To spin up this example locally, follow these steps:
 
 2. `pnpm dev`, `yarn dev` or `npm run dev` to start the server
    - Press `y` when prompted to seed the database
-3. `open http://localhost:3000` to access the home page
-4. `open http://localhost:3000/admin` to access the admin panel
+3. `open http://gold.localhost:3000` to access the home page (note: you can also go to `silver.` or `bronze.`)
+4. `open http://localhost:3000/admin` to access the admin panel (note: adding `/admin` to the custom domains will also take you to the admin panel)
 
 ### Login credentials
 
