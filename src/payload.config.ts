@@ -71,20 +71,11 @@ export default buildConfig({
     fallback: true,
   },
   
-  // Rate limiting (important for serverless environments)
-  rateLimit: {
-    window: 15 * 60 * 1000,
-    max: 500,
-  },
-  
+
   // CSRF protection for Vercel
   csrf: isProduction ? productionDomains : [],
   
-  // Enable secure cookies in production
-  cookies: {
-    secure: isProduction,
-    sameSite: 'lax',
-  },
+
   
   secret: process.env.PAYLOAD_SECRET as string,
   
@@ -126,9 +117,5 @@ export default buildConfig({
   telemetry: false,
   maxDepth: 10,
   indexSortableFields: true,
-  express: {
-    json: {
-      limit: '2mb', // Reduced for Vercel
-    },
-  },
-});
+   },
+);
