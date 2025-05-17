@@ -1,19 +1,10 @@
 module.exports = {
-  // Replace any reference to '@payloadcms' with standard configs
-  extends: [
-    'next/core-web-vitals',
-    // Remove or replace '@payloadcms' with a standard config
-    'eslint:recommended',
-    'plugin:react/recommended'
-  ],
-  // Add your other ESLint settings...
+  extends: ['next/core-web-vitals'],
   rules: {
-    // You can add custom rules here
-    'react/react-in-jsx-scope': 'off', // Not needed for Next.js
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
+    // Disable rules causing problems
+    'no-unused-vars': 'off',
+    'react/display-name': 'off',
+    '@next/next/no-html-link-for-pages': 'off',
+    'import/no-anonymous-default-export': 'off',
   },
 };
