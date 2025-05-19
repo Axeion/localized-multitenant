@@ -120,7 +120,7 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
-  [x: string]: string | TrustedHTML;
+  [x: string]: unknown | TrustedHTML;
   id: string;
   tenant?: (string | null) | Tenant;
   title?: string | null;
@@ -314,7 +314,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [key: string]: any;
 }
 
 
