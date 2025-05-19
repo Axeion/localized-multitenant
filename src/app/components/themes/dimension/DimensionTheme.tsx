@@ -180,56 +180,53 @@ export const DimensionTheme: React.FC<DimensionThemeProps> = ({
   const navItems = getNavItems();
 
   return (
-    <div className={`body ${loading} ${isArticleVisible ? 'is-article-visible' : ''}`}>
-      <div id="wrapper">
-        <header id="header">
-          <div className="logo">
-            <span className="icon fa-diamond"></span>
-          </div>
-          <div className="content">
-            <div className="inner">
-              <h1>{page.title || tenant}</h1>
-              <p>{page.subtitle || 'A fully responsive site template designed by HTML5 UP and released for free under the Creative Commons license.'}</p>
-            </div>
-          </div>
-          <nav>
-            <ul>
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  
-                    href="javascript:;"
-                    onClick={() => handleOpenArticle(item.id)}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </header>
+    <><div className={`body ${loading} ${isArticleVisible ? 'is-article-visible' : ''}`}>
+          <div id="wrapper">
+              <header id="header">
+                  <div className="logo">
+                      <span className="icon fa-diamond"></span>
+                  </div>
+                  <div className="content">
+                      <div className="inner">
+                          <h1>{page.title || tenant}</h1>
+                          <p>{page.subtitle || 'A fully responsive site template designed by HTML5 UP and released for free under the Creative Commons license.'}</p>
+                      </div>
+                  </div>
+                  <nav>
+                      <ul>
+                          {navItems.map((item) => (
+                              <li key={item.id}>
 
-        <main id="main" style={{ display: isArticleVisible ? 'flex' : 'none' }}>
-          <article
-            id={article}
-            className={`${articleTimeout ? 'timeout' : ''} ${
-              article ? 'active' : ''
-            } ${timeout ? 'is-timeout' : ''}`}
-            style={{ display: article ? 'block' : 'none' }}
-          >
-            {getArticleContent(article)}
-            <div className="close" onClick={handleCloseArticle}></div>
-          </article>
-        </main>
+                                  href="javascript:;"
+                                  onClick={() => handleOpenArticle(item.id)}
+                                  >
+                                  {item.label}
+                              </a>))}
+                      </li>
+                      ))}
+                  </ul>
+              </nav>
+          </header>
+          
 
-        <footer id="footer">
-          <p className="copyright">
-            &copy; {tenant} - {new Date().getFullYear()}. Design:{' '}
-            <a href="https://html5up.net">HTML5 UP</a>. Built with: PayloadCMS + Next.js
-          </p>
-        </footer>
-      </div>
+          <main id="main" style={{ display: isArticleVisible ? 'flex' : 'none' }}>
+              <article
+                  id={article}
+                  className={`${articleTimeout ? 'timeout' : ''} ${article ? 'active' : ''} ${timeout ? 'is-timeout' : ''}`}
+                  style={{ display: article ? 'block' : 'none' }}
+              >
+                  {getArticleContent(article)}
+                  <div className="close" onClick={handleCloseArticle}></div>
+              </article>
+          </main>
 
-      <div id="bg"></div>
+          <footer id="footer">
+              <p className="copyright">
+                  &copy; {tenant} - {new Date().getFullYear()}. Design:{' '}
+                  <a href="https://html5up.net">HTML5 UP</a>. Built with: PayloadCMS + Next.js
+              </p>
+          </footer>
+      </div><div id="bg"></div></>
     </div>
   );
 };
