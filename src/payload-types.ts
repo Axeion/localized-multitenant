@@ -120,6 +120,7 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
+  [x: string]: string | TrustedHTML;
   id: string;
   tenant?: (string | null) | Tenant;
   title?: string | null;

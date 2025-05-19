@@ -27,5 +27,20 @@ export const Tenants: CollectionConfig = {
       index: true,
       required: true,
     },
+    {
+      name: 'theme',
+      type: 'select',
+      options: [
+        {
+          label: 'Default',
+          value: 'default',
+        },
+        {
+          label: 'Dimension',
+          value: 'dimension',
+        },
+      ],
+      defaultValue: 'default',
+    },
   ],
 };
