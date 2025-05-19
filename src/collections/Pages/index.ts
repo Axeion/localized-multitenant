@@ -17,11 +17,6 @@ export const Pages: CollectionConfig = {
       required: true,
       index: true,
     },
-    {
-      name: 'tenant',
-      type: 'relationship',
-      relationTo: 'tenants',
-      required: true, // or false, based on your needs
-    }
+  
   ],
 };
