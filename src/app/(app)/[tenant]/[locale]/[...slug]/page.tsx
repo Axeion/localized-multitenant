@@ -6,7 +6,6 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import { RenderPage } from '../../../../components/RenderPage'
-// Import the Dimension theme component
 import { DimensionTheme } from '../../../../components/themes/dimension/DimensionTheme'
 import { Tenant } from '@/payload-types'
 
@@ -85,34 +84,17 @@ export default async function Page({
     return notFound()
   }
 
-  // Fetch navigation for this tenant (optional - if you have a navigation collection)
-  let navigation = []
-  try {
-    const navigationQuery = await payload.find({
-      collection: 'navigation',
-      where: {
-        'tenant.domain': {
-          equals: params.tenant,
-        },
-      },
-      locale: locale,
-      depth: 1,
-    })
-    
-    navigation = navigationQuery.docs?.[0]?.items || []
-  } catch (e) {
-    // If navigation collection doesn't exist or there's an error, we'll use an empty array
-    console.log('Navigation error or not found:', e)
-  }
+  // Instead of trying to fetch from a possibly non-existent collection,
+  // just use default navigation items
+  const navigation = [
+    { id: 'intro', label: 'Intro', slug: 'intro' },
+    { id: 'work', label: 'Work', slug: 'work' },
+    { id: 'about', label: 'About', slug: 'about' },
+    { id: 'contact', label: 'Contact', slug: 'contact' }
+  ];
 
   // Select theme based on tenant preference
-  // You'll need to add a 'theme' field to your tenants collection
-  // For now, we'll use the tenant domain as a simple way to decide the theme
-  const getTenantTheme = (tenantData: Tenant, pageData: unknown) => {
-    // If you add a theme field to your tenant collection, you would use:
-    // switch(tenantData.theme) {
-    
-    // For now, let's use the domain as an example:
+  const getTenantTheme = (tenantData: Tenant, pageData: any) => { // Change unknown to any or the proper Page type
     switch (tenantData.domain) {
       case 'gold.frmsn.space':
         return (
@@ -124,7 +106,8 @@ export default async function Page({
           />
         );
       default:
-        return <RenderPage data={pageData} />;
+        // Cast pageData to the expected type for RenderPage
+        return <RenderPage data={pageData as any} />;
     }
   };
 

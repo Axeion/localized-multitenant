@@ -10,6 +10,8 @@ import Users from "./collections/Users";
 import { multiTenantPlugin } from "@payloadcms/plugin-multi-tenant";
 import type { Config } from "./payload-types";
 import { seed } from "./seed";
+import { Navigation } from './collections/Navigation';
+
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -38,7 +40,8 @@ export default buildConfig({
       },
   },
   
-  collections: [Pages, Users, Tenants],
+// In the collections array
+  collections: [Pages, Users, Tenants, Navigation],
   
   db: mongooseAdapter({
     url: process.env.DATABASE_URI as string,
